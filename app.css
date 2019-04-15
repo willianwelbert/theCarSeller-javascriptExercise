@@ -1,0 +1,31 @@
+* {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-family: monospace;
+  margin-top: 1em;
+}
+
+.form {
+  width: 40%;
+  min-width: 320px;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+
+form input {
+  margin-bottom: 1em;
+}
+
+.catalog {
+  margin-top: 3em;
+}
+
+.catalog table {
+  width: 95%;
+  margin: 0 auto;
+  border: 1px solid #000;
+}
