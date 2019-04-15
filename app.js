@@ -1,5 +1,5 @@
-( function ( $, doc ) {
-  'use strict';
+(function($, doc) {
+  "use strict";
 
   /*
   Vamos estruturar um pequeno app utilizando módulos.
@@ -36,28 +36,17 @@
   que será nomeado de "app".
   */
 
-
-
-  // var $imageURLinput = $( '[data-js="image"]' ).get();
-  // var $carModelinput = $( '[data-js="brand-model"]' ).get();
-  // var $carYearinput = $( '[data-js="year"]' ).get();
-  // var $carPlateinput = $( '[data-js="plate"]' ).get();
-  // var $carColorinput = $( '[data-js="color"]' ).get();
   // var $registerButton = $( '[data-js="register"]' ).get();
 
-  var $catalog = $( '.catalog-body' );
-
-
-  function makeCatalogCell( input ) {
-    var newCell = doc.createElement( 'td' );
+  function makeCatalogCell(input) {
+    var newCell = doc.createElement("td");
     var cellValue = input.value;
-    var cellText = doc.createTextNode( cellValue );
-    newCell.appendChild( cellText );
-    return newCell
+    var cellText = doc.createTextNode(cellValue);
+    newCell.appendChild(cellText);
+    return newCell;
   }
 
   var id = 0;
-
 
   // $registerButton.on( 'click', function ( e ) {
   //   e.preventDefault();
@@ -83,47 +72,86 @@
 
   // } )
 
-  function app() {
+  var app = (function appController() {
     return {
       init: function init() {
-        console.log( 'app init' );
+        console.log("app init");
         this.companyInfo();
         this.initEvents();
       },
 
       initEvents: function initEvents() {
-        $( '[data-js="form-register"]' ).on( 'submit', this.handleSubmit );
+        $('[data-js="form-register"]').on("submit", this.handleSubmit);
       },
 
-      handleSubmit: function handleSubmit( e ) {
+      handleSubmit: function handleSubmit(e) {
         e.preventDefault();
-        console.log( 'submit' );
+        console.log("submit");
+        var $catalog = $(".catalog-body").get();
+        $catalog.appendChild(app.createNewCar());
+      },
+
+      id: (function getId() {
+        id = 0;
+        return function idIncrement() {
+          ++id;
+          return String(id);
+        };
+      })(),
+
+      createNewCar: function createNewCar() {
+        var $fragment = document.createDocumentFragment();
+        var $tr = document.createElement("tr");
+        var $tdID = document.createElement("td");
+        var $tdImage = document.createElement("td");
+        var $tdBrand = document.createElement("td");
+        var $tdYear = document.createElement("td");
+        var $tdPlate = document.createElement("td");
+        var $tdColor = document.createElement("td");
+
+        $tdID.textContent = this.id();
+        $tdBrand.textContent = $('[data-js="brand-model"]').get().value;
+        $tdYear.textContent = $('[data-js="year"]').get().value;
+        $tdPlate.textContent = $('[data-js="plate"]').get().value;
+        $tdColor.textContent = $('[data-js="color"]').get().value;
+
+        var $image = document.createElement("img");
+        $image.src = $('[data-js="image"]').get().value;
+        $tdImage.appendChild($image);
+
+        $tr.appendChild($tdID);
+        $tr.appendChild($tdImage);
+        $tr.appendChild($tdImage);
+        $tr.appendChild($tdBrand);
+        $tr.appendChild($tdYear);
+        $tr.appendChild($tdPlate);
+        $tr.appendChild($tdColor);
+
+        return $fragment.appendChild($tr);
       },
 
       companyInfo: function companyInfo() {
         var ajax = new XMLHttpRequest();
-        ajax.open( 'GET', 'company.json', true );
+        ajax.open("GET", "company.json", true);
         ajax.send();
-        ajax.addEventListener( 'readystatechange', this.getCompanyInfo, false );
+        ajax.addEventListener("readystatechange", this.getCompanyInfo, false);
       },
 
       getCompanyInfo: function getCompanyInfo() {
-        if ( !app().isReady.call( this ) )
-          return;
+        if (!app.isReady.call(this)) return;
 
-        var response = JSON.parse( this.responseText );
-        var companyDataParagraph = doc.createElement( 'p' );
+        var response = JSON.parse(this.responseText);
+        var companyDataParagraph = doc.createElement("p");
         var companyDataText = `${response.name} | ${response.phone}`;
-        companyDataParagraph.append( companyDataText );
-        doc.querySelector( '.header' ).appendChild( companyDataParagraph );
+        companyDataParagraph.append(companyDataText);
+        doc.querySelector(".header").appendChild(companyDataParagraph);
       },
 
       isReady: function isReady() {
         return this.readyState === 4 && this.status === 200;
       }
-    }
-  }
+    };
+  })();
 
-  app().init();
-
-} )( window.DOM, document );
+  app.init();
+})(window.DOM, document);
