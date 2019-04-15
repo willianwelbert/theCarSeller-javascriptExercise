@@ -108,6 +108,7 @@
         var $tdYear = document.createElement("td");
         var $tdPlate = document.createElement("td");
         var $tdColor = document.createElement("td");
+        var $removeButton = document.createElement("td");
 
         $tdID.textContent = this.id();
         $tdBrand.textContent = $('[data-js="brand-model"]').get().value;
@@ -119,6 +120,14 @@
         $image.src = $('[data-js="image"]').get().value;
         $tdImage.appendChild($image);
 
+        var removeButton = document.createElement("img");
+        removeButton.src =
+          "https://cdn4.iconfinder.com/data/icons/email-2-2/32/Trash-Email-Bin-512.png";
+        removeButton.setAttribute("style", "width:12px");
+        removeButton.setAttribute("data-js", "removeCar");
+
+        $removeButton.appendChild(removeButton);
+
         $tr.appendChild($tdID);
         $tr.appendChild($tdImage);
         $tr.appendChild($tdImage);
@@ -126,6 +135,11 @@
         $tr.appendChild($tdYear);
         $tr.appendChild($tdPlate);
         $tr.appendChild($tdColor);
+        $tr.appendChild($removeButton);
+
+        $removeButton.addEventListener("click", function() {
+          $fragment.appendChild($tr);
+        });
 
         return $fragment.appendChild($tr);
       },

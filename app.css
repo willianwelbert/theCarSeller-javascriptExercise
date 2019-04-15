@@ -27,6 +27,9 @@ form input {
 .catalog table {
   width: 95%;
   margin: 0 auto;
+}
+
+.catalog table tr td {
   border: 1px solid #000;
 }
 
