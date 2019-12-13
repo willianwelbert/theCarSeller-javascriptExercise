@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>App Cadastro de Carros</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+  <div class="container">
+    <div class="header">
+      <h1>Cadastro de Carros</h1>
+
+    </div>
+    <div class="form">
+      <form data-js="form-register">
+        <input type="url" data-js="image" placeholder="URL da Imagem"><br>
+        <input type="text" data-js="brand-model" placeholder="Marca / Modelo"><br>
+        <input type="number" minlength="4" maxlength="4" data-js="year"
+          placeholder="Ano"><br>
+        <input type="text" data-js="plate" placeholder="Placa"><br>
+        <input type="text" data-js="color" placeholder="Cor"><br>
+        <button data-js="register" type="submit">Cadastrar</button>
+
+      </form>
+    </div>
+    <div class="catalog">
+      <table>
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Foto do Carro</td>
+            <td>Marca / Modelo</td>
+            <td>Ano</td>
+            <td>Placa</td>
+            <td>Cor</td>
+          </tr>
+        </thead>
+        <tbody class="catalog-body">
+          <tr>
+            <td colspan="6"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="dom.js"></script>
+  <script src="app.js" async defer></script>
+</body>
+
+</html>
